@@ -3,6 +3,7 @@ import jax.numpy as jnp
 import optax
 from flax.training import train_state
 from tqdm import tqdm
+from flax import serialization
 
 from model import ClothingClassifier
 
@@ -49,3 +50,14 @@ def train_model(train_dataloader, num_classes=228, num_epochs=10):
         print(f"Epoch {epoch+1} completed. Avg Loss: {sum(batch_losses)/len(batch_losses):.4f}")
         
     return state
+
+def save_model(params, filepath='model_weights.msgpack'):
+    with open(filepath, 'wb') as f:
+        bytes_output = serialization.to_bytes(params)
+        f.write(bytes_output)
+    print(f"Model successfully saved to {filepath}")
+
+def load_model(empty_params, filepath='model_weights.msgpack'):
+    with open(filepath, 'rb') as f:
+        restored_params = serialization.from_bytes(empty_params, f.read())
+    return restored_params
