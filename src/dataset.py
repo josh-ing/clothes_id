@@ -19,7 +19,8 @@ def create_hf_dataloader(dataset_path, split="train", batch_size=32, num_classes
     """Downloads (or loads cached) HF data and builds a tf.data pipeline."""
     
     print(f"Loading Hugging Face dataset: {dataset_path} ({split} split)...")
-    hf_dataset = load_dataset(dataset_path, split=split)
+    cache = r"J:\huggingface\hub\datasets"
+    hf_dataset = load_dataset(dataset_path, "imaterialist", split=split, cache_dir=cache)
     
     def generator():
         for item in hf_dataset:

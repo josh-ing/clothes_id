@@ -1,3 +1,8 @@
+import os
+
+os.environ["HF_HOME"] = "J:/machine_learning/huggingface_cache"
+os.environ["HF_DATASETS_CACHE"] = "J:/machine_learning/huggingface_cache/datasets"
+os.environ["HF_MODULES_CACHE"] = "J:/machine_learning/huggingface_cache/modules"
 from dataset import create_hf_dataloader
 from train import train_model, save_model
 
